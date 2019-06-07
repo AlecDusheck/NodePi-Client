@@ -23,21 +23,17 @@ export class MockGPIOController extends GPIOController {
             id: pinId,
             direction: Direction.DIR_IN
         });
+        if (this.checkReserved(pinId)) throw new Error("Pin already reserved");
 
         return mock.fakeStatus;
     }
 
     async reversePin(pinId: number, direction: Direction): Promise<void> {
-        if (this.checkReserved(pinId)) throw new Error("Pin already reserved");
-
-        const reversedPin: IReservedPin = {
-            id: pinId,
-            direction: direction
-        };
-
-        this.reversedPins.push(reversedPin);
         this.mockStatuses.push({ // Add a fake value for the pin; for testing
-            pin: reversedPin,
+            pin: {
+                id: pinId,
+                direction: direction
+            },
             fakeStatus: false
         });
     }

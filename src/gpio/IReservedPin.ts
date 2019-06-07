@@ -1,4 +1,4 @@
-import {Direction} from "./RaspberryGPIOController";
+import {Direction} from "./GPIOController";
 
 export interface IReservedPin {
     direction: Direction,
