@@ -22,10 +22,7 @@ export abstract class GPIOController {
 
     checkReserved(pinId: number, requiredDirection?: Direction): boolean {
         if(requiredDirection) {
-            return this.reversedPins.includes({
-                id: pinId,
-                direction: requiredDirection
-            })
+            return this.reversedPins.find(resPin => resPin.id === pinId && resPin.direction === requiredDirection) !== undefined;
         } else {
             return this.reversedPins.find(resPin => resPin.id === pinId) !== undefined;
         }

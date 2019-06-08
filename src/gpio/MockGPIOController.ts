@@ -19,11 +19,7 @@ export class MockGPIOController extends GPIOController {
     async readPin(pinId: number): Promise<boolean> {
         if (!this.checkReserved(pinId, Direction.DIR_IN)) throw new Error("Pin not appropriately reserved");
 
-        const mock = this.mockStatuses.find(mockPin => mockPin.pin === {
-            id: pinId,
-            direction: Direction.DIR_IN
-        });
-        if (this.checkReserved(pinId)) throw new Error("Pin already reserved");
+        const mock = this.mockStatuses.find(mockPin => mockPin.pin.id === pinId && mockPin.pin.direction === Direction.DIR_OUT);
 
         return mock.fakeStatus;
     }
@@ -41,11 +37,9 @@ export class MockGPIOController extends GPIOController {
     async writePin(pinId: number, value: boolean): Promise<void> {
         if (!this.checkReserved(pinId, Direction.DIR_OUT)) throw new Error("Pin not appropriately reserved");
 
-        const mock = this.mockStatuses.find(mockPin => mockPin.pin === {
-            id: pinId,
-            direction: Direction.DIR_OUT
-        });
+        const mock = this.mockStatuses.find(mockPin => mockPin.pin.id === pinId && mockPin.pin.direction === Direction.DIR_OUT);
 
         mock.fakeStatus = value;
+        console.log("[DEBUG] Pin #" + pinId + " status set to " + value);
     }
 }

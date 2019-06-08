@@ -1,3 +1,4 @@
 import {NodePi} from "./src/NodePi";
 
-new NodePi();
+const np = new NodePi();
+np.bootstrap();
