@@ -29,7 +29,6 @@ export abstract class GPIOController {
     }
 
     async init(): Promise<void> {
-        const configPath = path.join(NodePi.root, "../pins.json");
         this.reversedPins = await this.getPinConfig();
 
         for (let pin of this.reversedPins) { // Reverse the pins now
